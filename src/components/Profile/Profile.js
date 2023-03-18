@@ -31,26 +31,26 @@ function Profile(props) {
             <form className="profile" noValidate>
                 <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <div className="profile__form">
-                    <p className="profile__name" htmlFor='name'>Имя</p>
+                    <p className="profile__name">Имя</p>
                     <input
                         className="profile__input"
                         id='name'
                         name='name'
                         type="text"
-                        value={formValue.name}
+                        defaultValue={formValue.name}
                         minLength="2"
                         maxLength="30"
                         required>
                     </input>
                 </div>
                 <div className="profile__form">
-                    <p className="profile__name" htmlFor='email'>E-mail</p>
+                    <p className="profile__name">E-mail</p>
                     <input
                         className="profile__input"
                         id='email'
                         name='email'
                         type="email"
-                        value={formValue.email}
+                        defaultValue={formValue.email}
                         minLength="2"
                         maxLength="30"
                         required>

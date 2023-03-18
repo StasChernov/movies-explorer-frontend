@@ -25,7 +25,6 @@ function App() {
   const [isShowPreloader, setIsShowPreloader] = useState(false);
 
   const navigate = useNavigate();
-
   function handleRegister() {
     setLoggedIn(true);
     navigate('/movies');

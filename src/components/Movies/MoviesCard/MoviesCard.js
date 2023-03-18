@@ -9,7 +9,7 @@ function MoviesCard({ card}) {
 
     return (
         <li className="cards__item">
-            <a className="cards__link" href={card.trailerLink} target="_blank" rel="noreferrer">
+            <a className="cards__link" href="" target="_blank" rel="noreferrer">
                 <img className="cards__image" src={card.image} alt={`Фото ${card.nameRU}`} />
             </a>
             <div className="cards__description">

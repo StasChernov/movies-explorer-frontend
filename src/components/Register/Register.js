@@ -26,35 +26,35 @@ function handleSubmit(e) {
             </Link>
             <form className="register" onSubmit={handleSubmit} noValidate>
                 <h1 className="register__title">Добро пожаловать!</h1>
-                <p className="register__name" htmlFor='name'>Имя</p>
+                <p className="register__name">Имя</p>
                 <input 
                     className="register__input" 
                     id='name'
                     name='name'
                     type="text" 
-                    value={formValue.name}
+                    defaultValue={formValue.name}
                     minLength="2"
                     maxLength="30"
                     required>
                 </input>
-                <p className="register__name" htmlFor='email'>E-mail</p>
+                <p className="register__name">E-mail</p>
                 <input 
                     className="register__input" 
                     id='email'
                     name='email'
                     type="email"
-                    value={formValue.email}
+                    defaultValue={formValue.email}
                     minLength="2"
                     maxLength="30"
                     required>
                 </input>
-                <p className="register__name" htmlFor='password'>Пароль</p>
+                <p className="register__name">Пароль</p>
                 <input 
                     className="register__input" 
                     id='password'
                     name='password'
                     type="password"
-                    value={formValue.password}
+                    defaultValue={formValue.password}
                     minLength="2"
                     maxLength="30"
                     required>

@@ -32,7 +32,8 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    width: 460px;
+    max-width: 460px;
+    width: 100%;
     margin: 0;
     text-align: center;
     padding-top: 26px;
@@ -120,7 +121,7 @@
     .techs__text {
         font-size: 11px;
         line-height: 16px;
-        width: 292px;
+        max-width: 292px;
         padding-top: 24px;
         padding-bottom: 50px;
     }

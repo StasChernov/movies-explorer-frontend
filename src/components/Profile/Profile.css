@@ -2,7 +2,8 @@
     color: #fff;
     display: flex;
     flex-direction: column;
-    width: 410px;
+    max-width: 410px;
+    width: 100%;
 }
 
 .profile__title {
@@ -104,7 +105,7 @@
 
 @media screen and (max-width: 500px) {
     .main-profile {
-        width: 260px;
+        max-width: 260px;
     }
 
     .profile__title {

@@ -24,24 +24,24 @@ function Login(props) {
             </Link>
             <form className="login" onSubmit={handleSubmit} noValidate>
                 <h1 className="login__title">Рады видеть!</h1>
-                <p className="login__name" htmlFor='email'>E-mail</p>
+                <p className="login__name">E-mail</p>
                 <input
                     className="login__input"
                     type="email"
                     id='email'
                     name='email'
-                    value={formValue.email}
+                    defaultValue={formValue.email}
                     minLength="2"
                     maxLength="30"
                     required>
                 </input>
-                <p className="login__name" htmlFor='password'>Пароль</p>
+                <p className="login__name">Пароль</p>
                 <input
                     className="login__input"
                     type="password"
                     id='password'
                     name='password'
-                    value={formValue.password}
+                    defaultValue={formValue.password}
                     minLength="2"
                     maxLength="30"
                     required>
