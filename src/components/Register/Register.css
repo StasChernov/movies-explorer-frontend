@@ -47,6 +47,14 @@
     color: #FF4062;
 }
 
+.register__error {
+    color: #FF4062;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    margin: 10px 0 0;
+}
+
 .register__button {
     width: 396px;
     height: 45px;

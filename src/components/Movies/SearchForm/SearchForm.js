@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import './SearchForm.css';
 
-function SearchForm() {
+function SearchForm(props) {
 
-    const [searchName, setSearchName] = useState('');
-    const [searchShorts, setSearchShorts] = useState(true);
+    const [searchName, setSearchName] = useState(props.savedSearchName);
+    const [searchShorts, setSearchShorts] = useState(props.savedSearchShorts);
     const [isRequestEmpty, setIsRequestEmpty] = useState(true);
     const [disabled, setDisabled] = useState(true);
 
@@ -26,10 +26,12 @@ function SearchForm() {
             return
         }
         setIsRequestEmpty(false);
+        props.onSubmit(searchName, searchShorts);
     }
 
     function handleCheckbox(checkboxstatus) {
-         setSearchShorts(checkboxstatus);
+        props.onSubmit(searchName, checkboxstatus);
+        setSearchShorts(checkboxstatus);
     }
 
     return (
