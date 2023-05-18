@@ -73,7 +73,6 @@ class Api {
   }
 
   checkToken(token) {
-    console.log(token);
     if (!token) return Promise.reject(`Ошибка: Отсутствует токен`);
     return fetch(`${this._apiUserURL}`, {
       method: "GET",

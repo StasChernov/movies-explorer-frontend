@@ -108,7 +108,26 @@
     padding-top: 97px;
   }
 
-  .profile-form__button{
+  .profile-form__button {
     padding-top: 198px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .profile__title {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .profile {
+    padding: 67px 30px 70px;
+  }
+
+  .profile-form {
+    padding-top: 79px;
+  }
+
+  .profile-form__button {
+    padding-top: 367px;
   }
 }

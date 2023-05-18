@@ -113,7 +113,7 @@
   color: #4285F4;
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 470px) {
   .entry__link {
     font-size: 12px;
     line-height: 15px;

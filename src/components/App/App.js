@@ -29,8 +29,6 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
 
-
-
   const [currentUser, setCurrentUser] = useState({
     name: "",
     email: "",
@@ -45,11 +43,10 @@ export default function App() {
       .catch((err) => console.log(err));
   }
 
- 
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      mainApi.updateToken();
       checkToken(token);
     } else {
       setIsLoggedIn(false);

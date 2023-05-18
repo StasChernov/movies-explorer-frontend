@@ -181,9 +181,20 @@
   .menu_type_short {
     display: flex;
   }
+
+  .header_empty {
+    padding: 70px 0 0;
+  }
 }
 
-@media screen and (max-width: 400px) {
+
+@media screen and (max-width: 520px) {
+  .burger-menu__back {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 470px) {
   .header {
     padding: 18px 13px 18px;
   }
