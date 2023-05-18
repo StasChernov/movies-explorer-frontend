@@ -1,70 +1,67 @@
-import React, { useContext, useState, useEffect } from "react";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
-import '../App/App.css';
+import { NavLink } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
 
-function Profile(props) {
-    const currentUser = useContext(CurrentUserContext);
+export default function Profile({onSignOut, onUpdateUserInfo}) {
 
-    const [formValue, setFormValue] = useState({
-        name: "",
-        email: ""
-    })
+  const {values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
+  const currentUser = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    setValues({
+      email: currentUser.email,
+      name: currentUser.name,
+    });
+  }, []);
     
-    const [disabled, setDisabled] = useState(false);
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUpdateUserInfo(values);
+    setIsValid(false);
+  }
 
-    useEffect(() => {
-        setFormValue((state) => ({
-            ...state,
-            name: currentUser.name,
-            email: currentUser.email
-        })
-        );
-    }, [currentUser.name, currentUser.email]);
-
-    function handleSubmit(e) {
-        e.preventDefault();
-    }
-
-    return (
-        <main className="main-profile">
-            <form className="profile" noValidate>
-                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
-                <div className="profile__form">
-                    <p className="profile__name">Имя</p>
-                    <input
-                        className="profile__input"
-                        id='name'
-                        name='name'
-                        type="text"
-                        defaultValue={formValue.name}
-                        minLength="2"
-                        maxLength="30"
-                        required>
-                    </input>
-                </div>
-                <div className="profile__form">
-                    <p className="profile__name">E-mail</p>
-                    <input
-                        className="profile__input"
-                        id='email'
-                        name='email'
-                        type="email"
-                        defaultValue={formValue.email}
-                        minLength="2"
-                        maxLength="30"
-                        required>
-                    </input>
-                </div>
-                <button className="button profile__button" type="submit"
-                    onClick={handleSubmit}
-                    disabled={disabled}
-                >Редактировать</button>
-                <button className="button profile__button profile__button_type_link" onClick={props.onLogout}>Выйти из аккаунта</button>
-                <button className="button button_bg_black profile__button profile__button_type_save" type='submit' onSubmit={handleSubmit}>Сохранить</button>
-            </form>
-        </main>
-    )
-};
-
-export default Profile;
+  return (
+    <section className="profile">
+      <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+      <form className="profile-form" onSubmit={handleSubmit}>
+        <fieldset className="profile-form__fields">
+          <div className="profile-form__field">
+            <h3 className="field__title">Имя</h3>
+            <input
+              className="profile-form__input"
+              id="input-name"
+              pattern="[A-Za-zА-Яа-яёЁ\- ]{2,40}"
+              type="text"
+              value={values.name}
+              name="name"
+              onChange={handleChange}
+              required
+              minLength="2"
+              maxLength="40"
+            />
+          </div>
+          <span className="profile-form__error">{errors.name}</span>
+          <div className="profile-form__field profile-form__field_type_email">
+            <h3 className="field__title">E-mail</h3>
+            <input
+              className="profile-form__input"
+              id="input-email"
+              type="email"
+              value={values.email}
+              name="email"
+              onChange={handleChange}
+              required
+              minLength="2"
+              maxLength="40"
+            />
+          </div>
+          <span className="profile-form__error">{errors.email}</span>
+          <button type="submit" className={`profile-form__button ${isValid && "profile-form__button_active"}`} disabled={!isValid}>Редактировать</button>
+        </fieldset>
+      </form>
+      <NavLink onClick={onSignOut} className="profile__logout" to="/signin">Выйти из аккаунта</NavLink>
+    </section>
+  );
+}

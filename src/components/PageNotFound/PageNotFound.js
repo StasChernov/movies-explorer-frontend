@@ -1,15 +1,13 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './PageNotFound.css';
 
-function PageNotFound() {
-    return (
-        <main className="error">
-            <h1 className="error__num">404</h1>
-            <p className="error__name">Страница не найдена</p>
-            <Link className="animation error__button" type="submit" to='/'>Назад</Link>
-        </main>
-    )
-};
+export default function NotFound() {
 
-export default PageNotFound;
+  return (
+    <section className="page-not-found">
+      <h1 className="page-not-found__title">404</h1>
+      <p className="page-not-found__paragraph">Страница не найдена</p>
+      <NavLink className="page-not-found__link" to="/">Назад</NavLink>
+    </section>
+  );
+}

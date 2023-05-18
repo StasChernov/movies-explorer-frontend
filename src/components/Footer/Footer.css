@@ -1,105 +1,89 @@
 .footer {
-  max-width: 1280px;
+  display: flex;
+  padding: 0 70px 20px;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  padding: 80px 70px 20px;
   box-sizing: border-box;
 }
 
 .footer__title {
+  margin: 0;
+  padding-top: 79px;
+  padding-bottom: 20px;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
   color: #8B8B8B;
-  margin: 0;
-  text-align: center;
-  padding-bottom: 20px;
 }
 
 .footer__info {
-  border-top: 1px solid #424242;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   padding-top: 20px;
-}
-
-.footer__text {
-  margin: 0;
+  border-top: 1px solid #424242;
+  justify-content: space-between;
+  color: #fff;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #fff;
 }
 
-.footer__list {
-  margin: 0;
-  list-style: none;
+.footer__links {
   display: flex;
-  padding-left: 0px;
-}
-
-.footer__item {
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-  padding-right: 20px;
-  color: #fff;
-}
-
-.footer__item:last-child {
-  padding-right: 0px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer__link {
   color: #fff;
   text-decoration: none;
+  margin-left: 20px;
 }
 
 @media screen and (max-width: 768px) {
   .footer {
-    padding: 79px 30px 20px;
+    padding: 0 30px 20px;
+  }
+
+  .footer__title {
+    padding-top: 43px;
+    padding-bottom: 20px;
   }
 }
 
-@media screen and (max-width: 620px) {
+
+@media screen and (max-width: 430px) {
   .footer {
-    padding: 79px 10px 20px;
+    padding: 0 15px 20px;
   }
 
   .footer__title {
     font-size: 12px;
     line-height: 15px;
-  }
-
-  .footer__text {
-    font-size: 12px;
-    line-height: 15px;
+    padding-top: 24px;
+    text-align: center;
   }
 
   .footer__info {
-    flex-direction: column;
-    padding-top: 20px;
+    flex-direction: column-reverse;
+    padding-top: 28px;
     text-align: center;
-    padding-top: 30px;
   }
 
-  .footer__list {
+  .footer__links {
     flex-direction: column;
-    order: -1;
-    text-align: center;
-    padding-bottom: 18px;
   }
 
-  .footer__item {
-    padding-right: 0;
-    padding-bottom: 12px;
+  .footer__link{
+    margin-left: 0px;
     font-size: 12px;
-    line-height: 15px;
+    line-height: 25px;
   }
-}
 
-@media screen and (max-width: 400px) {
-  .footer {
-    padding-top: 79px;
+  .footer__copyrights {
+    margin-top: 25px;
   }
-  
+
 }

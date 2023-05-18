@@ -1,100 +1,192 @@
 .header {
-  max-width: 1280px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-}
-
-.header_type_color {
+  box-sizing: border-box;
+  padding: 18px 70px 18px;
   background-color: #073042;
 }
 
-.header__content {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 18px 70px;
-  box-sizing: border-box;
+.header_blacked {
+  background-color: #202020;
 }
 
-.header__menu{
-  display: flex;
+.header_empty {
+  padding: 70px 0 0;
+  max-width: 396px;
 }
 
-.logo-link {
-  width: 38px;
-  height: 38px;
-}
-
-.header__list {
+.menu {
   display: flex;
-  justify-content: center;
   align-items: center;
-  list-style: none;
-  text-align: center;
-  margin: 0;
-  padding-left: 0;
-  margin-left: 48px;
 }
 
-.header__account-icon {
+.header__logo {
+  width: 38px;
+}
+
+.header__icon {
+  padding: 8px 7px 8px;
   background-color: #313131;
   border-radius: 4px;
-  padding: 8px;
+  margin-left: 17px;
 }
 
-.header__item {
-  border-radius: 3px;
-}
-
-.header__item:last-child {
-  padding-left: 0px;
-}
-
-.header__item_type_green {
-  background-color: #3DDC84;
-  width: 76px;
-  margin-left: 30px;
-}
-
-.header__link {
-  font-weight: 500;
-  font-size: 12px;
-  text-decoration: none;
-  color: #fff;
-  line-height: 35px;
+.menu__item {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #fff;
 }
 
-.header__link_type_black {
-  color: #000;
+.menu__group-items {
+  display: flex;
+  margin-right: 50px;
 }
+
+.menu__item_color_green {
+  color: #000;
+  background-color: #3DDC84;
+  border-radius: 3px;
+  padding: 8px 20px 8px;
+}
+
+.menu__item_type_alone {
+  margin-right: 30px;
+}
+
+.menu__item_type_group {
+  margin-right: 20px;
+}
+
+.menu__item_active {
+  font-weight: 500;
+}
+
+.menu_type_short {
+  display: none;
+}
+
+.menu__burger-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.burger-button__icon {
+  height: 38px;
+  object-fit: contain;
+}
+
+.header__burger-menu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  z-index: 1;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+}
+
+.header__burger-menu_isOpen {
+  display: flex;
+}
+
+.burger-menu__back {
+  width: 520px;
+  height: 100%;
+  background-color: #202020;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.burger-menu__close-button {
+  background-color: transparent;
+  align-self: flex-end;
+  border: none;
+  padding: 22px 22px 0 0;
+}
+
+.burger-menu__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.burger-menu__group-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.burger-menu__item:first-child {
+  padding-top: 103px;
+}
+
+.burger-menu__item {
+  color: #fff;
+  text-decoration: none;
+}
+
+.burger-menu__item_selected {
+  text-decoration: underline;
+}
+
+.burger-menu__item_type_group {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  padding-bottom: 28px;
+}
+
+.burger-menu__item_type_alone {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  padding-bottom: 92px;
+  display: flex;
+  align-items: center;
+}
+
 
 @media screen and (max-width: 768px) {
-  .header__content {
-    padding: 18px 30px;
+  .header {
+    padding: 18px 30px 18px;
+  }
+
+  .menu__item {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .menu_type_long {
+    display: none;
+  }
+
+  .menu_type_short {
+    display: flex;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .header__content {
-    padding: 18px 14px;
+  .header {
+    padding: 18px 13px 18px;
   }
 
-  .header__item {
-    height: 26px;
-    width: 54px;
-    border-radius: 3px;
-  }
-
-  .header__item:first-child {
-    margin-right: 14px;
-    padding: 0px;
-    width: auto;
-  }
-
-  .header__link {
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 26px;
-  }
+  
 }

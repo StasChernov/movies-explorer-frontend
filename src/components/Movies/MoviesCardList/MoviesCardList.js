@@ -1,24 +1,23 @@
-import {React}  from "react";
-import '../../App/App.css';
 import './MoviesCardList.css';
-import MoviesCard from "../MoviesCard/MoviesCard";
 
-import Preloader from '../Preloader/Preloader';
+import MoviesCard from '../MoviesCard/MoviesCard.js'
 
-function MoviesCardList(props) {
-    
-    return (
-        <section className="cards">
-            <ul className="cards__list">
-                {props.cards.map((card, cardId) => (
-                    <MoviesCard
-                        card={card}
-                    />
-                ))}
-            </ul>
-            {props.isShowPreloader && <Preloader/>}
-        </section>
-    )
+export default function MoviesCardList({ localSavedMovies, movies, countShowCards, isSavedMovies, handleLikeButton }) {
+
+  return (
+    <ul className="movies-card-list">
+      {movies.map((movie, index) => {
+        if (index < countShowCards) {
+        return (
+          <MoviesCard
+            localSavedMovies={localSavedMovies}
+            key={movie.id}
+            movie={movie}
+            isSavedMovies={isSavedMovies}
+            handleLikeButton={handleLikeButton}
+          />
+        )}     
+      })}
+    </ul>
+  );
 }
-
-export default MoviesCardList;
