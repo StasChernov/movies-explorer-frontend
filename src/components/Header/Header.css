@@ -188,5 +188,8 @@
     padding: 18px 13px 18px;
   }
 
-  
+  .header_empty {
+    padding-top: 55px;
+    justify-content: center;
+  }
 }

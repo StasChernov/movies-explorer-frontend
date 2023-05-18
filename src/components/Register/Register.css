@@ -112,3 +112,34 @@
   line-height: 17px;
   color: #4285F4;
 }
+
+@media screen and (max-width: 430px) {
+  .entry__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .entry__title {
+    align-self: center;
+  }
+
+  .entry {
+    padding-top: 30px;
+  }
+
+  .form__fields {
+    padding: 80px 29px 0;
+  }
+
+  .form__button {
+    margin-top: 179px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .entry__question {
+    font-size: 12px;
+    line-height: 15px;
+    padding-top: 12px;
+  }
+}
