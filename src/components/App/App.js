@@ -99,7 +99,7 @@ export default function App() {
     if (isSavedMovies) {
       const savedMovies = JSON.parse(localStorage.getItem('localSavedMovies'));
       setLocalSavedMovies(filterMovies(savedMovies, isShorts, title));
-      localStorage.setItem('isSavedShorts', JSON.stringify(isShorts));
+      isShorts ? localStorage.setItem('isSavedShorts', JSON.stringify(true)) : localStorage.setItem('isSavedShorts', JSON.stringify(false));
       localStorage.setItem('savedTitle', JSON.stringify(title));
     } else {
       setIsPreloader(true);
@@ -110,7 +110,7 @@ export default function App() {
           calcRenderCards();
           setIsErrorMovie(false);
           localStorage.setItem('localMovies', JSON.stringify(filteredMovies));
-          localStorage.setItem('isShorts', JSON.stringify(isShorts));
+          isShorts ? localStorage.setItem('isShorts', JSON.stringify(true)) : localStorage.setItem('isShorts', JSON.stringify(false));
           localStorage.setItem('title', JSON.stringify(title));
         })
         .catch((err) => {

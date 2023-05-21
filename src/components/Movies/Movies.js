@@ -19,6 +19,11 @@ export default function Movies({ onSearchMovies, localMovies, localSavedMovies, 
   }, [localMovies, countShowCards]
   )
 
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('title')))
+      onSearchMovies(JSON.parse(localStorage.getItem('title')), JSON.parse(localStorage.getItem('isShorts')), false);
+  },[])
+
   function startNewSearch () {
     setCountShowCards(0); 
   }
