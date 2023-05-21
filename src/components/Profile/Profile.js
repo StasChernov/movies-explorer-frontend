@@ -52,6 +52,7 @@ export default function Profile({onSignOut, onUpdateUserInfo}) {
               value={values.email}
               name="email"
               onChange={handleChange}
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
               required
               minLength="2"
               maxLength="40"

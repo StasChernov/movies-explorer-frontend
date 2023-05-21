@@ -27,6 +27,7 @@ export default function Login({ onLogin }) {
               placeholder="E-mail"
               onChange={handleChange}
               name="email"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
               required
               minLength="2"
               maxLength="40"

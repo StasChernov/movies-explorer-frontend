@@ -40,6 +40,7 @@ export default function Register({ onRegister }) {
               type="email"
               placeholder="E-mail"
               name="email"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
               onChange={handleChange}
               required
               minLength="2"
