@@ -61,7 +61,7 @@ export default function Profile({onSignOut, onUpdateUserInfo}) {
           <button type="submit" className={`profile-form__button ${isValid && "profile-form__button_active"}`} disabled={!isValid}>Редактировать</button>
         </fieldset>
       </form>
-      <NavLink onClick={onSignOut} className="profile__logout" to="/signin">Выйти из аккаунта</NavLink>
+      <button onClick={onSignOut} className="profile__logout">Выйти из аккаунта</button>
     </section>
   );
 }

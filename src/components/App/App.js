@@ -66,7 +66,7 @@ export default function App() {
     setLocalMovies([]);
     setLocalSavedMovies([]);
     setCurrentUser({});
-    history.push("/signin");
+    history.push("/");
   }
 
   function handleLikeButton(movie, isSaved, isSavedMovies) {
