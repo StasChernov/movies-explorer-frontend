@@ -6,15 +6,21 @@ export default function MoviesCard({ movie, localSavedMovies, handleLikeButton, 
   function onlikeButton() {
     handleLikeButton(movie, isSaved, isSavedMovies);
   }
-    
+
   return (
     <li className="movies-card">
       <div className="movies-card__image-container">
-        <img
-          className="movies-card__image"
-          src={isSavedMovies ? `${movie.image}` : `https://api.nomoreparties.co${movie.image.url}`}
-          alt={movie.nameRU}
-        />
+        <a href={movie.trailerLink}
+          target="_blank"
+          rel="noreferrer"
+          className="movies-card__link"
+        >
+          <img
+            className="movies-card__image"
+            src={isSavedMovies ? `${movie.image}` : `https://api.nomoreparties.co${movie.image.url}`}
+            alt={movie.nameRU}
+          />
+        </a>
       </div>
       <div className="movies-card__footer">
         <div className="movies-card__base">
