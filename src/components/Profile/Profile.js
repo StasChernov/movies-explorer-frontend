@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect} from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
@@ -16,6 +16,16 @@ export default function Profile({onSignOut, onUpdateUserInfo}) {
     });
   }, []);
     
+  useEffect(() => {
+    if (isValid) {
+      if ((currentUser.email !== values.email) || (currentUser.name !== values.name)) {
+        setIsValid(true);
+      } else {
+        setIsValid(false);
+      }
+    }
+  })
+
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUserInfo(values);
