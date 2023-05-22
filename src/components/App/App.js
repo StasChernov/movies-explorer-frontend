@@ -97,6 +97,7 @@ export default function App() {
 
   function onSearchMovies(title, isShorts, isSavedMovies) {
     if (isSavedMovies) {
+      console.log("я здесь")
       const savedMovies = JSON.parse(localStorage.getItem('localSavedMovies'));
       setLocalSavedMovies(filterMovies(savedMovies, isShorts, title));
       isShorts ? localStorage.setItem('isSavedShorts', JSON.stringify(true)) : localStorage.setItem('isSavedShorts', JSON.stringify(false));

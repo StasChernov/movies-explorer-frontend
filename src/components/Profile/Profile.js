@@ -1,5 +1,4 @@
-import { NavLink } from 'react-router-dom';
-import { useContext, useState, useEffect} from 'react';
+import { useContext, useEffect} from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';

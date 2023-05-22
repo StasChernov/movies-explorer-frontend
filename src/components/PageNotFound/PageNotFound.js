@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import './PageNotFound.css';
 
 export default function NotFound({history}) {
