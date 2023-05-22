@@ -1,13 +1,13 @@
 import './SavedMovies.css';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList.js';
 import SearchForm from '../Movies/SearchForm/SearchForm.js'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { mainApi } from '../../utils/MainApi';
 
-export default function SavedMovies({ localSavedMovies, handleLikeButton, onSearchMovies }) {
+export default function SavedMovies({localSavedMovies, handleLikeButton, onSearchMovies, getMoviesFromApi }) {
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('savedTitle')))
-      onSearchMovies(JSON.parse(localStorage.getItem('savedTitle')), JSON.parse(localStorage.getItem('isSavedShorts')), true);
+    getMoviesFromApi();
   },[])
 
   return (

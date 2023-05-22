@@ -48,8 +48,6 @@ class Api {
   }
 
   signIn({ email, password }) {
-    console.log(email);
-    console.log(password);
     return fetch(`${this._apiURL}/signin`, {
       headers: this._headers,
       method: "POST",

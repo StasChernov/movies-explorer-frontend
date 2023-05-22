@@ -19,9 +19,9 @@ import { useEffect, useState } from 'react';
 
 export default function App() {
 
-
-  const [localMovies, setLocalMovies] = useState([]);
   const [localSavedMovies, setLocalSavedMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [isPreloader, setIsPreloader] = useState(false);
   const [isErrorMovie, setIsErrorMovie] = useState(false);
   const [countCards, setCountCards] = useState({ countRender: 0, moreMovies: 0 });
@@ -33,15 +33,6 @@ export default function App() {
     name: "",
     email: "",
   });
-
-  function getMoviesFromApi() {
-    mainApi.getSavedMovies()
-      .then((cards) => {
-        setLocalSavedMovies(cards);
-        localStorage.setItem('localSavedMovies', JSON.stringify(cards));
-      })
-      .catch((err) => console.log(err));
-  }
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -56,15 +47,13 @@ export default function App() {
 
   function handleSignOut() {
     localStorage.removeItem('token');
-    localStorage.removeItem('localSavedMovies');
     localStorage.removeItem('localMovies');
     localStorage.removeItem('isShorts');
-    localStorage.removeItem('isSavedShorts');
     localStorage.removeItem('title');
-    localStorage.removeItem('savedTitle');
     setIsLoggedIn(false);
-    setLocalMovies([]);
     setLocalSavedMovies([]);
+    setFilteredMovies([]);
+    setFilteredSavedMovies([]);
     setCurrentUser({});
     history.push("/");
   }
@@ -80,7 +69,6 @@ export default function App() {
     } else {
       mainApi.addMovie(movie)
         .then((data) => {
-          localStorage.setItem('localSavedMovies', JSON.stringify(localSavedMovies));
           setLocalSavedMovies([data, ...localSavedMovies]);
         })
         .catch((err) => console.log(err));
@@ -95,30 +83,43 @@ export default function App() {
     }
   }
 
+  function getMoviesFromApi() {
+    mainApi.getSavedMovies()
+      .then((cards) => {
+        setLocalSavedMovies(cards);
+        setFilteredSavedMovies(cards);
+      })
+      .catch((err) => console.log(err));
+  }
+
   function onSearchMovies(title, isShorts, isSavedMovies) {
     if (isSavedMovies) {
-      console.log("я здесь")
-      const savedMovies = JSON.parse(localStorage.getItem('localSavedMovies'));
-      setLocalSavedMovies(filterMovies(savedMovies, isShorts, title));
-      isShorts ? localStorage.setItem('isSavedShorts', JSON.stringify(true)) : localStorage.setItem('isSavedShorts', JSON.stringify(false));
-      localStorage.setItem('savedTitle', JSON.stringify(title));
+      setFilteredSavedMovies(filterMovies(localSavedMovies, isShorts, title));
     } else {
-      setIsPreloader(true);
-      moviesApi.getMovies()
-        .then((data) => {
-          const filteredMovies = filterMovies(data, isShorts, title);
-          setLocalMovies(filteredMovies);
-          calcRenderCards();
-          setIsErrorMovie(false);
-          localStorage.setItem('localMovies', JSON.stringify(filteredMovies));
-          isShorts ? localStorage.setItem('isShorts', JSON.stringify(true)) : localStorage.setItem('isShorts', JSON.stringify(false));
-          localStorage.setItem('title', JSON.stringify(title));
-        })
-        .catch((err) => {
-          setIsErrorMovie(true);
-          console.log(err)
-        })
-        .finally(() => setIsPreloader(false));
+      const movies = JSON.parse(localStorage.getItem('localMovies'));
+      console.log(movies);
+      if (movies) {
+        setFilteredMovies(filterMovies(movies, isShorts, title));
+        calcRenderCards();
+        isShorts ? localStorage.setItem('isShorts', JSON.stringify(true)) : localStorage.setItem('isShorts', JSON.stringify(false));
+        localStorage.setItem('title', JSON.stringify(title));
+      } else {
+        setIsPreloader(true);
+        moviesApi.getMovies()
+          .then((data) => {
+            localStorage.setItem('localMovies', JSON.stringify(data));
+            setIsErrorMovie(false);
+            setFilteredMovies(filterMovies(data, isShorts, title));
+            console.log("jkjgkjktj");
+            calcRenderCards();
+            isShorts ? localStorage.setItem('isShorts', JSON.stringify(true)) : localStorage.setItem('isShorts', JSON.stringify(false));
+            localStorage.setItem('title', JSON.stringify(title));
+          })
+          .catch((err) => {
+            setIsErrorMovie(true);
+          })
+          .finally(() => setIsPreloader(false));
+      }
     }
   }
 
@@ -205,11 +206,11 @@ export default function App() {
         <div className="app__content">
           <Switch>
             <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
-              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
               <Movies
                 countCards={countCards}
                 onSearchMovies={onSearchMovies}
-                localMovies={localMovies}
+                localMovies={filteredMovies}
                 localSavedMovies={localSavedMovies}
                 isPreloader={isPreloader}
                 isErrorMovie={isErrorMovie}
@@ -219,34 +220,35 @@ export default function App() {
               <Footer />
             </ProtectedRoute>
             <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
               <SavedMovies
                 onSearchMovies={onSearchMovies}
-                localSavedMovies={localSavedMovies}
+                localSavedMovies={filteredSavedMovies}
                 isSavedMovies={true}
                 handleLikeButton={handleLikeButton}
+                getMoviesFromApi={getMoviesFromApi}
               />
               <Footer />
             </ProtectedRoute>
             <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
-              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
               <Profile onSignOut={handleSignOut} onUpdateUserInfo={handleUpdateUserInfo} />
             </ProtectedRoute>
             <Route path="/signup">
-              <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
               <Register onRegister={handleRegister} />
             </Route>
             <Route path="/signin">
-              <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
               <Login onLogin={handleLogin} />
             </Route>
             <Route exact path="/">
-              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen}/>
+              <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
               <Main />
               <Footer />
             </Route>
             <Route path="*">
-              <PageNotFound history={history}/>
+              <PageNotFound history={history} />
             </Route>
           </Switch>
         </div>

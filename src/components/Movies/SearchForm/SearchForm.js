@@ -14,19 +14,7 @@ export default function SearchForm({ onSearchMovies, startNewSearch, isSavedMovi
   const inputIsShorts = useRef();
 
   useEffect(() => {
-    if (isSavedMovies) {
-      const title = JSON.parse(localStorage.getItem('savedTitle'));
-      if (title) {
-        setTitle(title);
-        inputFilmTitle.current.value = title;
-      }
-      const isShorts = JSON.parse(localStorage.getItem('isSavedShorts'))
-      if (isShorts) {
-        setIsShorts(isShorts);
-        inputIsShorts.current.checked = isShorts;
-      }
-    }
-    else {
+    if (!isSavedMovies) {
       const title = JSON.parse(localStorage.getItem('title'));
       if (title) {
         setTitle(title);
@@ -38,8 +26,7 @@ export default function SearchForm({ onSearchMovies, startNewSearch, isSavedMovi
         inputIsShorts.current.checked = isShorts;
       }
     }
-  }, []
-  )
+  }, [])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -48,6 +35,7 @@ export default function SearchForm({ onSearchMovies, startNewSearch, isSavedMovi
     }
     else {
       !isSavedMovies && startNewSearch();
+      console.log(title, isShorts)
       onSearchMovies(title, isShorts, isSavedMovies);
       setError("");
     };
