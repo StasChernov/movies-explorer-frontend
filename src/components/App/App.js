@@ -146,7 +146,6 @@ export default function App() {
           name: data.name
         });
         getMoviesFromApi();
-        history.push("/movies");
       })
       .catch((err) => {
         if (err.name === "AbortError") {
@@ -166,6 +165,7 @@ export default function App() {
           mainApi.updateToken();
           checkToken(data.token);
           setIsLoggedIn(true);
+          history.push("/movies");
         }
       })
       .catch((err) => {
@@ -245,7 +245,7 @@ export default function App() {
               <Footer />
             </Route>
             <Route path="*">
-              <PageNotFound />
+              <PageNotFound history={history}/>
             </Route>
           </Switch>
         </div>

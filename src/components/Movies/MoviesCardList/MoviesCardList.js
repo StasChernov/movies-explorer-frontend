@@ -11,7 +11,7 @@ export default function MoviesCardList({ localSavedMovies, movies, countShowCard
         return (
           <MoviesCard
             localSavedMovies={localSavedMovies}
-            key={movie.id}
+            key={index}
             movie={movie}
             isSavedMovies={isSavedMovies}
             handleLikeButton={handleLikeButton}
