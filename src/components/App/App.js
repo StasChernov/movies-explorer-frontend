@@ -110,7 +110,6 @@ export default function App() {
             localStorage.setItem('localMovies', JSON.stringify(data));
             setIsErrorMovie(false);
             setFilteredMovies(filterMovies(data, isShorts, title));
-            console.log("jkjgkjktj");
             calcRenderCards();
             isShorts ? localStorage.setItem('isShorts', JSON.stringify(true)) : localStorage.setItem('isShorts', JSON.stringify(false));
             localStorage.setItem('title', JSON.stringify(title));
