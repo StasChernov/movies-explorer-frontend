@@ -1,13 +1,13 @@
-import { apiURL } from "../utils/constants";
-import { apiMoviesURL} from "../utils/constants";
+import { API_URL } from "../utils/constants";
+import { API_MOVIES_URL} from "../utils/constants";
 
 class Api {
-  constructor({ headers, apiURL, apiMoviesURL }) {
-    this._apiURL = apiURL;
-    this._apiUserURL = `${apiURL}/users/me`;
-    this._apiCardsURL = `${apiURL}/movies`;
+  constructor({ headers, API_URL, API_MOVIES_URL }) {
+    this._apiURL = API_URL;
+    this._apiUserURL = `${API_URL}/users/me`;
+    this._apiCardsURL = `${API_URL}/movies`;
     this._headers = headers;
-    this._apiMoviesURL = apiMoviesURL;
+    this._apiMoviesURL = API_MOVIES_URL;
   }
 
   _handleResponse(res, type) {
@@ -128,5 +128,5 @@ export const mainApi = new Api({
   headers: {
     authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json',
-  }, apiURL, apiMoviesURL
+  }, API_URL, API_MOVIES_URL
 });

@@ -1,5 +1,5 @@
 import './MoviesCard.css';
-import { apiMoviesURL} from '../../../utils/constants';
+import { API_MOVIES_URL} from '../../../utils/constants';
 
 export default function MoviesCard({ movie, localSavedMovies, handleLikeButton, isSavedMovies }) {
   const isSaved = !isSavedMovies && localSavedMovies.some((item) => item.movieId === movie.id);
@@ -18,7 +18,7 @@ export default function MoviesCard({ movie, localSavedMovies, handleLikeButton, 
         >
           <img
             className="movies-card__image"
-            src={isSavedMovies ? `${movie.image}` : `${apiMoviesURL}${movie.image.url}`}
+            src={isSavedMovies ? `${movie.image}` : `${API_MOVIES_URL}${movie.image.url}`}
             alt={movie.nameRU}
           />
         </a>
