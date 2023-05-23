@@ -35,7 +35,6 @@ export default function SearchForm({ onSearchMovies, startNewSearch, isSavedMovi
     }
     else {
       !isSavedMovies && startNewSearch();
-      console.log(title, isShorts)
       onSearchMovies(title, isShorts, isSavedMovies);
       setError("");
     };

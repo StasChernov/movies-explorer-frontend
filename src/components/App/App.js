@@ -83,6 +83,10 @@ export default function App() {
     }
   }
 
+useEffect (()=>{
+  setFilteredSavedMovies(localSavedMovies);
+},[localSavedMovies])
+
   function getMoviesFromApi() {
     mainApi.getSavedMovies()
       .then((cards) => {
