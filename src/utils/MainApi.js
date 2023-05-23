@@ -1,10 +1,13 @@
+import { apiURL } from "../utils/constants";
+import { apiMoviesURL} from "../utils/constants";
 
 class Api {
-  constructor({ headers, apiURL }) {
+  constructor({ headers, apiURL, apiMoviesURL }) {
     this._apiURL = apiURL;
     this._apiUserURL = `${apiURL}/users/me`;
     this._apiCardsURL = `${apiURL}/movies`;
     this._headers = headers;
+    this._apiMoviesURL = apiMoviesURL;
   }
 
   _handleResponse(res, type) {
@@ -58,11 +61,11 @@ class Api {
         duration: movie.duration,
         year: movie.created_at,
         description: movie.description,
-        image: `https://api.nomoreparties.co${movie.image.url}`,
+        image: `${this._apiMoviesURL}${movie.image.url}`,
         trailerLink: movie.trailerLink,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
-        thumbnail: `https://api.nomoreparties.co${movie.image.url}`,
+        thumbnail: `${this._apiMoviesURL}${movie.image.url}`,
         movieId: movie.id,
       }),
     }).then((res) => this._handleResponse(res, "add"));
@@ -125,5 +128,5 @@ export const mainApi = new Api({
   headers: {
     authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json',
-  }, apiURL: 'https://api.movies.chernov.nomoredomains.club'
+  }, apiURL, apiMoviesURL
 });
