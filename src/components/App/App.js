@@ -12,10 +12,22 @@ import PageNotFound from '../PageNotFound/PageNotFound.js';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-
 import { Route, Switch, useHistory } from 'react-router-dom';
-
 import { useEffect, useState } from 'react';
+
+import { BIG_WIDTH_SCREEN } from "../../utils/constants";
+import { MIDDLE_WIDTH_SCREEN } from "../../utils/constants";
+import { SMALL_WIDTH_SCREEN } from "../../utils/constants";
+import { BIG_FIRST_RENDERED_CARDS } from "../../utils/constants";
+import { MIDDLE_FIRST_RENDERED_CARDS } from "../../utils/constants";
+import { SMALL_FIRST_RENDERED_CARDS } from "../../utils/constants";
+import { MICRO_FIRST_RENDERED_CARDS } from "../../utils/constants";
+import { BIG_MORE_CARDS } from "../../utils/constants";
+import { MIDDLE_MORE_CARDS } from "../../utils/constants";
+import { SMALL_MORE_CARDS } from "../../utils/constants";
+import { MICRO_MORE_CARDS } from "../../utils/constants";
+import { DURATION } from "../../utils/constants";
+
 
 export default function App() {
 
@@ -82,7 +94,7 @@ export default function App() {
 
   function filterMovies(movies, isShorts, title) {
     if (isShorts)
-      return movies.filter(movie => movie.nameRU.includes(title) && movie.duration <= 40)
+      return movies.filter(movie => movie.nameRU.includes(title) && movie.duration <= DURATION)
     else {
       return movies.filter(movie => movie.nameRU.includes(title))
     }
@@ -133,17 +145,17 @@ export default function App() {
 
   function calcRenderCards() {
     const width = window.innerWidth;
-    if (width >= 1280) {
-      return setCountCards({ countRender: 16, moreMovies: 4 })
+    if (width >= BIG_WIDTH_SCREEN) {
+      return setCountCards({ countRender: BIG_FIRST_RENDERED_CARDS, moreMovies: BIG_MORE_CARDS })
     }
-    if (width >= 990) {
-      return setCountCards({ countRender: 12, moreMovies: 3 })
+    if (width >= MIDDLE_WIDTH_SCREEN) {
+      return setCountCards({ countRender: MIDDLE_FIRST_RENDERED_CARDS, moreMovies: MIDDLE_MORE_CARDS })
     }
-    if (width >= 767) {
-      return setCountCards({ countRender: 8, moreMovies: 2 })
+    if (width >= SMALL_WIDTH_SCREEN) {
+      return setCountCards({ countRender: SMALL_FIRST_RENDERED_CARDS, moreMovies: SMALL_MORE_CARDS })
     }
-    if (width < 767) {
-      return setCountCards({ countRender: 5, moreMovies: 1 })
+    if (width < SMALL_WIDTH_SCREEN) {
+      return setCountCards({ countRender: MICRO_FIRST_RENDERED_CARDS, moreMovies: MICRO_MORE_CARDS })
     }
   }
 
@@ -247,11 +259,11 @@ export default function App() {
             </ProtectedRoute>
             <Route path="/signup">
               <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp}/>
+              <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp} />
             </Route>
             <Route path="/signin">
               <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn}/>
+              <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn} />
             </Route>
             <Route exact path="/">
               <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
