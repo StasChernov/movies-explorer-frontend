@@ -1,30 +1,51 @@
 
 class Api {
   constructor({ headers, apiURL }) {
-    this._apiURL=apiURL;
+    this._apiURL = apiURL;
     this._apiUserURL = `${apiURL}/users/me`;
     this._apiCardsURL = `${apiURL}/movies`;
     this._headers = headers;
   }
 
-  _handleResponse(res) {
+  _handleResponse(res, type) {
     if (res.ok) {
       return res.json();
+    } else {
+      let message = "";
+
+      switch (res.status) {
+        case 400:
+          if (type === "signIn") message = "Не передано одно из полей.";
+          else if (type === "signUp")
+            message = "Некорректно заполнено одно из полей.";
+          else message = "Токен не передан или передан не в том формате.";
+          break;
+        case 401:
+          if (type === "signIn") message = "Неверные почта или пароль.";
+          break;
+        case 409:
+          if (type === "signUp") message = "Пользователь с таким email уже существует";
+          else if (type === "update") message = "Пользователь с таким email уже существует";
+          break;
+        default:
+          message = "Повторите попытку позже.";
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}. ${message}`);
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getSavedMovies() {
     return fetch(this._apiCardsURL, {
       headers: this._headers,
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "get"));
   }
 
   deleteMovie(cardId) {
     return fetch(`${this._apiCardsURL}/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "delete"));
   }
 
   addMovie(movie) {
@@ -44,7 +65,7 @@ class Api {
         thumbnail: `https://api.nomoreparties.co${movie.image.url}`,
         movieId: movie.id,
       }),
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "add"));
   }
 
   signIn({ email, password }) {
@@ -55,7 +76,7 @@ class Api {
         password,
         email,
       }),
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "signIn"));
   }
 
   signUp({ name, email, password }) {
@@ -67,7 +88,7 @@ class Api {
         email,
         password,
       }),
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "signUp"));
   }
 
   checkToken(token) {
@@ -78,7 +99,7 @@ class Api {
         ...this._headers,
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "check"));
   }
 
   updateToken() {
@@ -88,7 +109,7 @@ class Api {
     }
   }
 
-  updateUserInfo({name, email}) {
+  updateUserInfo({ name, email }) {
     return fetch(this._apiUserURL, {
       method: "PATCH",
       headers: this._headers,
@@ -96,11 +117,13 @@ class Api {
         email,
         name,
       }),
-    }).then((res) => this._handleResponse(res));
+    }).then((res) => this._handleResponse(res, "update"));
   }
 }
 
-export const mainApi =  new Api({headers: {
-  authorization: `Bearer ${localStorage.getItem('token')}`,
-  'Content-Type': 'application/json',
-}, apiURL : 'https://api.movies.chernov.nomoredomains.club'});
+export const mainApi = new Api({
+  headers: {
+    authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  }, apiURL: 'https://api.movies.chernov.nomoredomains.club'
+});

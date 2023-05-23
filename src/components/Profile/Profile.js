@@ -3,10 +3,12 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
 
-export default function Profile({onSignOut, onUpdateUserInfo}) {
+export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setErrorMessage}) {
 
   const {values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
+
+  useEffect(() => {setErrorMessage("")},[values]);
 
   useEffect(() => {
     setValues({
@@ -68,6 +70,7 @@ export default function Profile({onSignOut, onUpdateUserInfo}) {
             />
           </div>
           <span className="profile-form__error">{errors.email}</span>
+          <span className="profile__api-error">{errorMessage}</span>
           <button type="submit" className={`profile-form__button ${isValid && "profile-form__button_active"}`} disabled={!isValid}>Редактировать</button>
         </fieldset>
       </form>

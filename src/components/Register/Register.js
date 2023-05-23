@@ -1,10 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import './Register.css';
 
-export default function Register({ onRegister }) {
+export default function Register({ onRegister, errorMessage, setErrorMessage }) {
   
   const {values, handleChange, errors, isValid } = useFormWithValidation();
+
+  useEffect(() => {setErrorMessage("")},[values]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,6 +66,7 @@ export default function Register({ onRegister }) {
             />
             <span className="form__error">{errors.password}</span>
           </div>
+          <span className="form__api-error">{errorMessage}</span>
           <button type="submit" className={`form__button ${isValid && "form__button_active"}`} disabled={!isValid}>Зарегистрироваться</button>
         </fieldset>
       </form>

@@ -27,6 +27,9 @@ export default function App() {
   const [countCards, setCountCards] = useState({ countRender: 0, moreMovies: 0 });
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [errorSignIn, SetErrorSignIn] = useState("");
+  const [errorSignUp, SetErrorSignUp] = useState("");
+  const [errorProfile, SetErrorProfile] = useState("");
   const history = useHistory();
 
   const [currentUser, setCurrentUser] = useState({
@@ -55,6 +58,8 @@ export default function App() {
     setFilteredMovies([]);
     setFilteredSavedMovies([]);
     setCurrentUser({});
+    SetErrorSignIn("");
+    SetErrorSignUp("");
     history.push("/");
   }
 
@@ -83,9 +88,9 @@ export default function App() {
     }
   }
 
-useEffect (()=>{
-  setFilteredSavedMovies(localSavedMovies);
-},[localSavedMovies])
+  useEffect(() => {
+    setFilteredSavedMovies(localSavedMovies);
+  }, [localSavedMovies])
 
   function getMoviesFromApi() {
     mainApi.getSavedMovies()
@@ -175,6 +180,7 @@ useEffect (()=>{
       })
       .catch((err) => {
         console.log("%c" + err, "color: #dd3333");
+        SetErrorSignIn(err);
       });
   }
 
@@ -186,6 +192,7 @@ useEffect (()=>{
       })
       .catch((err) => {
         console.log("%c" + err, "color: #dd3333");
+        SetErrorSignUp(err);
       });
   }
 
@@ -199,6 +206,7 @@ useEffect (()=>{
         });
       })
       .catch((err) => {
+        SetErrorProfile(err);
         console.log("%c" + err, "color: #dd3333");
       });
   }
@@ -235,15 +243,15 @@ useEffect (()=>{
             </ProtectedRoute>
             <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
               <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Profile onSignOut={handleSignOut} onUpdateUserInfo={handleUpdateUserInfo} />
+              <Profile onSignOut={handleSignOut} onUpdateUserInfo={handleUpdateUserInfo} errorMessage={errorProfile} setErrorMessage={SetErrorProfile} />
             </ProtectedRoute>
             <Route path="/signup">
               <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp}/>
             </Route>
             <Route path="/signin">
               <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Login onLogin={handleLogin} />
+              <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn}/>
             </Route>
             <Route exact path="/">
               <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
