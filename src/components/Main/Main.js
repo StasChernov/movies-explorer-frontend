@@ -1,22 +1,21 @@
-import React from "react";
 import './Main.css';
-import Promo from './Promo/Promo';
-import AboutProject from "./AboutProject/AboutProject";
-import Techs from "./Techs/Techs";
-import AboutMe from "./AboutMe/AboutMe";
-import Portfolio from "./Portfolio/Portfolio";
+import Promo from './Promo/Promo.js';
+import AboutProject from './AboutProject/AboutProject.js';
+import Techs from './Techs/Techs.js';
+import AboutMe from './AboutMe/AboutMe.js';
+import Portfolio from './Portfolio/Portfolio.js';
+import Footer from '../Footer/Footer.js'
 
-function Main() {
-    return (
-        <main className='main'>
-            <Promo />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
-            <Portfolio />
-        </main>
-    );
+export default function Main() {
+  return (
+    <>
+      <div className="main">
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </div>
+    </>
+  );
 }
-
-export default Main;
-

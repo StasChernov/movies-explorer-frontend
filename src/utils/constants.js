@@ -1,83 +1,17 @@
-export const cards = [
-  {
-    "id": 1,
-    "image": "https://i.ibb.co/S0Twgkx/3-29-4b376917c9.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 2,
-    "image": "https://i.ibb.co/1r0dwZv/750x485-6aa18b04bb.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 3,
-    "image": "https://i.ibb.co/rbFfSgq/704543546-960-d6340bce70.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 4,
-    "image": "https://i.ibb.co/RvCfDG2/a048f25d-cc42-4c2c-aa8d-5878118806d7-ffd3e73bf8.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 5,
-    "image": "https://i.ibb.co/NNcq1bd/full-Amanda-F-ing-Palmer-web-IMG-1015-cbc67aff4a.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 6,
-    "image": "https://i.ibb.co/cYLgyPB/maxresdefault-1-5bef2a2c64.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 7,
-    "image": "https://i.ibb.co/FW0B1bN/maxresdefault-88702f9bc0.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 8,
-    "image": "https://i.ibb.co/gFS6pdm/stones-in-exile-b2f1b8f4b7.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  }
-];
+export const API_URL = 'https://api.movies.chernov.nomoredomains.club';
+export const API_MOVIES_URL = 'https://api.nomoreparties.co';
+export const BIG_WIDTH_SCREEN = 1280;
+export const MIDDLE_WIDTH_SCREEN = 990;
+export const SMALL_WIDTH_SCREEN = 767;
 
-export const savedCards = [
-    {
-    "id": 4,
-    "image": "https://i.ibb.co/RvCfDG2/a048f25d-cc42-4c2c-aa8d-5878118806d7-ffd3e73bf8.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 5,
-    "image": "https://i.ibb.co/NNcq1bd/full-Amanda-F-ing-Palmer-web-IMG-1015-cbc67aff4a.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 6,
-    "image": "https://i.ibb.co/cYLgyPB/maxresdefault-1-5bef2a2c64.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 7,
-    "image": "https://i.ibb.co/FW0B1bN/maxresdefault-88702f9bc0.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  },
-  {
-    "id": 8,
-    "image": "https://i.ibb.co/gFS6pdm/stones-in-exile-b2f1b8f4b7.jpg",
-    "nameRU": "33 слова о дизайне",
-    "duration": "1ч 42м"
-  }
-];
+export const BIG_FIRST_RENDERED_CARDS = 16;
+export const MIDDLE_FIRST_RENDERED_CARDS = 12;
+export const SMALL_FIRST_RENDERED_CARDS = 8;
+export const MICRO_FIRST_RENDERED_CARDS = 5;
+
+export const BIG_MORE_CARDS = 4;
+export const MIDDLE_MORE_CARDS = 3;
+export const SMALL_MORE_CARDS = 2;
+export const MICRO_MORE_CARDS = 1;
+
+export const DURATION = 40;

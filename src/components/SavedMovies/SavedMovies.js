@@ -1,17 +1,30 @@
-import { React } from "react";
-import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import SearchForm from "../Movies/SearchForm/SearchForm";
+import './SavedMovies.css';
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList.js';
+import SearchForm from '../Movies/SearchForm/SearchForm.js'
+import { useEffect, useState } from 'react';
+import { mainApi } from '../../utils/MainApi';
 
-function SavedMovies(props) {
+export default function SavedMovies({localSavedMovies, handleLikeButton, onSearchMovies, getMoviesFromApi }) {
+
+  useEffect(() => {
+    getMoviesFromApi();
+  },[])
+
   return (
-        <div className="movies">
-            <SearchForm />
-            <MoviesCardList
-                cards={props.cards}
-                isShowPreloader={props.isShowPreloader}
-            />
-        </div>
-    )
+    <>
+      <section className="saved-movies">
+        <SearchForm 
+          isSavedMovies={true}
+          onSearchMovies={onSearchMovies}
+        />
+        <MoviesCardList
+          localSavedMovies={localSavedMovies}
+          movies={localSavedMovies}
+          isSavedMovies={true}
+          countShowCards={localSavedMovies.length}
+          handleLikeButton={handleLikeButton}
+        />
+      </section>
+    </>
+  );
 }
-
-export default SavedMovies;

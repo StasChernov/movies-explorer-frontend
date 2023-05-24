@@ -1,72 +1,79 @@
-import {React, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import './Register.css';
-import logo from '../../images/logo.svg';
 
+export default function Register({ onRegister, errorMessage, setErrorMessage, isBlock }) {
 
-function Register(props) {
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
-const [formValue, setFormValue] = useState({
-    name: '',
-    email: '',
-    password: '',
-})
+  useEffect(() => { setErrorMessage("") }, [values]);
 
-const [disabled, setDisabled] = useState(false);
-
-function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    props.onRegister();
+    onRegister(values);
+  }
+
+  return (
+    <section className="entry">
+      <h1 className="entry__title">Добро пожаловать!</h1>
+      <form className="entry__form" onSubmit={handleSubmit}>
+        <fieldset className="form__fields">
+          <div className="field">
+            <label className="field__label" htmlFor="input-name">Имя</label>
+            <input
+              readOnly={isBlock}
+              className="field__input"
+              id="input-name"
+              type="text"
+              pattern="[A-Za-zА-Яа-яёЁ\- ]{2,40}"
+              placeholder="Имя"
+              name="name"
+              onChange={handleChange}
+              required
+              minLength="2"
+              maxLength="40"
+            />
+            <span className="form__error">{errors.name}</span>
+          </div>
+          <div className="field">
+            <label className="field__label" htmlFor="input-email">E-mail</label>
+            <input
+              readOnly={isBlock}
+              className="field__input"
+              id="input-email"
+              type="email"
+              placeholder="E-mail"
+              name="email"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+              onChange={handleChange}
+              required
+              minLength="2"
+              maxLength="40"
+            />
+            <span className="form__error">{errors.email}</span>
+          </div>
+          <div className="field">
+            <label className="field__label" htmlFor="input-password">Пароль</label>
+            <input
+              readOnly={isBlock}
+              className="field__input field__input_type_password"
+              id="input-password"
+              type="password"
+              placeholder="Пароль"
+              name="password"
+              onChange={handleChange}
+              required
+              minLength="2"
+              maxLength="40"
+            />
+            <span className="form__error">{errors.password}</span>
+          </div>
+          <span className="form__api-error">{errorMessage}</span>
+          <button type="submit" className={`form__button ${isValid && "form__button_active"}`} disabled={!isValid}>Зарегистрироваться</button>
+        </fieldset>
+      </form>
+      <span className="entry__question">Уже зарегистрированы? <NavLink className="entry__link" to="/signin">Войти</NavLink></span>
+    </section>
+  );
 }
-
-    return (
-        <main className="main-register">
-            <Link className='animation logo-register' to="/">
-                <img className="logo" src={logo} alt="Логотип" />
-            </Link>
-            <form className="register" onSubmit={handleSubmit} noValidate>
-                <h1 className="register__title">Добро пожаловать!</h1>
-                <p className="register__name">Имя</p>
-                <input 
-                    className="register__input" 
-                    id='name'
-                    name='name'
-                    type="text" 
-                    defaultValue={formValue.name}
-                    minLength="2"
-                    maxLength="30"
-                    required>
-                </input>
-                <p className="register__name">E-mail</p>
-                <input 
-                    className="register__input" 
-                    id='email'
-                    name='email'
-                    type="email"
-                    defaultValue={formValue.email}
-                    minLength="2"
-                    maxLength="30"
-                    required>
-                </input>
-                <p className="register__name">Пароль</p>
-                <input 
-                    className="register__input" 
-                    id='password'
-                    name='password'
-                    type="password"
-                    defaultValue={formValue.password}
-                    minLength="2"
-                    maxLength="30"
-                    required>
-                </input>
-                <button className="button button_bg_blue register__button" type="submit" onSubmit={handleSubmit} disabled={disabled}>Зарегистрироваться</button>
-            </form>
-            <div className="register__signin">
-                <p className="register__text">Уже зарегистрированы?</p>
-                <Link className="animation register__signin-link" to="/signin">Войти</Link>
-            </div>
-        </main>
-    )
-};
-
-export default Register;

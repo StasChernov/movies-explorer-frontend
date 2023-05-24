@@ -1,19 +1,53 @@
-import { React } from "react";
-
 import './Movies.css';
-import MoviesCardList from "./MoviesCardList/MoviesCardList";
-import SearchForm from "./SearchForm/SearchForm";
+import MoviesCardList from './MoviesCardList/MoviesCardList.js';
+import SearchForm from './SearchForm/SearchForm.js'
+import Preloader from './Preloader/Preloader.js'
+import { useEffect, useState } from 'react';
 
-function Movies(props) {
-    return (
-        <div className="movies">
-            <SearchForm />
-            <MoviesCardList
-                cards={props.cards}
-                isShowPreloader={props.isShowPreloader}
-            />
-        </div>
-    )
+export default function Movies({ onSearchMovies, localMovies, localSavedMovies, isPreloader, countCards, isErrorMovie, isSavedMovies, handleLikeButton, getMoviesFromBeatfilm, setLocalMovies }) {
+
+  const [countShowCards, setCountShowCards] = useState(0);
+  const [moreButton, setMoreButton] = useState(false);
+
+  useEffect(() => {
+    setCountShowCards(countCards.countRender);
+  }, [countCards.countRender, localMovies]
+  )
+
+  useEffect(() => {
+    (localMovies.length <= countShowCards) ? setMoreButton(false) : setMoreButton(true);
+  }, [localMovies, countShowCards]
+  )
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('title'))) {
+      onSearchMovies(JSON.parse(localStorage.getItem('title')), JSON.parse(localStorage.getItem('isShorts')), false);
+    }
+  }, [])
+
+  function startNewSearch() {
+    setCountShowCards(0);
+  }
+
+  return (
+    <>
+      <section className="movies">
+        <SearchForm
+          onSearchMovies={onSearchMovies}
+          startNewSearch={startNewSearch}
+          isSavedMovies={isSavedMovies}
+        />
+        {isPreloader ? <Preloader /> :
+          <MoviesCardList
+            localSavedMovies={localSavedMovies}
+            movies={localMovies}
+            countShowCards={countShowCards}
+            handleLikeButton={handleLikeButton}
+            isSavedMovies={isSavedMovies}
+          />}
+        {isErrorMovie && <span className="movies__error">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</span>}
+      </section>
+      {moreButton && <button type="submit" className="movies__more-button" onClick={(() => setCountShowCards(countShowCards + countCards.moreMovies))}>Ещё</button>}
+    </>
+  );
 }
-
-export default Movies;

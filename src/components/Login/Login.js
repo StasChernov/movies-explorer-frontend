@@ -1,59 +1,63 @@
-import { React, useState } from "react";
-import { Link } from "react-router-dom";
-import './Login.css';
-import logo from '../../images/logo.svg';
+import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
+import '../Register/Register.css';
 
-function Login(props) {
-    const [formValue, setFormValue] = useState({
-        email: '',
-        password: ''
-    })
+export default function Login({ onLogin, errorMessage, setErrorMessage, isBlock }) {
 
-    const [disabled, setDisabled] = useState(false);
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        props.onLogin();
-    }
+  useEffect(() => { setErrorMessage("") }, [values]);
 
-    return (
-        <main className="main-login">
-            <Link className='animation logo-login' to="/">
-                <img className="logo" src={logo} alt="Логотип" />
-            </Link>
-            <form className="login" onSubmit={handleSubmit} noValidate>
-                <h1 className="login__title">Рады видеть!</h1>
-                <p className="login__name">E-mail</p>
-                <input
-                    className="login__input"
-                    type="email"
-                    id='email'
-                    name='email'
-                    defaultValue={formValue.email}
-                    minLength="2"
-                    maxLength="30"
-                    required>
-                </input>
-                <p className="login__name">Пароль</p>
-                <input
-                    className="login__input"
-                    type="password"
-                    id='password'
-                    name='password'
-                    defaultValue={formValue.password}
-                    minLength="2"
-                    maxLength="30"
-                    required>
-                </input>
-                <button className="button button_bg_blue login__button" type="submit" disabled={disabled}>Войти</button>
-            </form>
-            <div className="login__signup">
-                <p className="login__text">Ещё не зарегистрированы?</p>
-                <Link className="animation login__signup-link" to="/signup">Регистрация</Link>
-            </div>
-        </main>
-    )
-};
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin(values);
+  }
 
-export default Login;
+  return (
+    <section className="entry">
+      <h1 className="entry__title">Рады видеть!</h1>
+      <form className="entry__form" onSubmit={handleSubmit}>
+        <fieldset className="form__fields">
+          <div className="field">
+            <label className="field__label" htmlFor="input-email">E-mail</label>
+            <input
+              readOnly={isBlock}
+              className="field__input"
+              id="input-email"
+              type="email"
+              placeholder="E-mail"
+              onChange={handleChange}
+              name="email"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1, 63}$"
+              required
+              minLength="2"
+              maxLength="40"
+            />
+            <span className="form__error">{errors.email}</span>
+          </div>
+          <div className="field">
+            <label className="field__label" htmlFor="input-password">Пароль</label>
+            <input
+              readOnly={isBlock}
+              className="field__input"
+              id="input-password"
+              type="password"
+              placeholder="Пароль"
+              onChange={handleChange}
+              name="password"
+              required
+              minLength="2"
+              maxLength="40"
+            />
+            <span className="form__error">{errors.password}</span>
+          </div>
+          <span className="form__api-error">{errorMessage}</span>
+          <button type="submit" className={`form__button form__button_type_login ${isValid && "form__button_active"}`} disabled={!isValid}>Войти</button>
+        </fieldset>
+      </form>
+      <span className="entry__question entry__question_type_login">Еще не зарегистрированы? <NavLink className="entry__link" to="/signup">Регистрация</NavLink></span>
+    </section>
+  );
+}

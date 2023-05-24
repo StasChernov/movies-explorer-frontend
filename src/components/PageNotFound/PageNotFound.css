@@ -1,63 +1,36 @@
-.error {
-    display: flex;
-    flex-direction: column;
-    margin-top: 246px;
-    color: #fff;
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 246px;
+  color: #fff;
 }
 
-.error__num {
-    font-weight: 400;
-    font-size: 140px;
-    line-height: 169px;
-    text-align: center;
-    margin: 0;
+.page-not-found__title {
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
 }
 
-.error__name {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-    margin: 0;
-    text-align: center;
-    padding-top: 5px;
+.page-not-found__paragraph {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+  padding-top: 5px;
 }
 
-.error__button {
-    text-decoration: none;
-    color: #4285F4;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    margin: 184px auto 60px;
-}
-
-@media screen and (max-width: 768px) {
-    .error {
-        margin-top: 408px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    
-    .error {
-        margin-top: 329px;
-    }
-    
-    .error__num {
-        font-size: 80px;
-        line-height: 97px;
-    }
-    
-    .error__name {
-        font-size: 12px;
-        line-height: 15px;
-        padding-top: 10px;
-    }
-    
-    .error__button {
-        font-size: 12px;
-        line-height: 15px;
-        margin-top: 284px;
-        margin-bottom: 30px;
-    }
+.page-not-found__button {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding-top: 184px;
+  text-decoration: none;
+  color: #4285F4;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
