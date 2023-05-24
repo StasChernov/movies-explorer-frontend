@@ -82,6 +82,10 @@
   line-height: 13px;
 }
 
+.profile-form__input:read-only {
+  color: rgb(46, 44, 44);
+}
+
 .profile-form__button {
   padding-top: 220px;
   font-weight: 400;
@@ -109,8 +113,6 @@
   background-color: transparent;
   cursor: pointer;
 }
-
-
 
 @media screen and (max-width: 989px) {
   .profile {

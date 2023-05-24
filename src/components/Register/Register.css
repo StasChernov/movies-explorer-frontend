@@ -58,6 +58,11 @@
 
 }
 
+.field__input:read-only {
+  opacity: 0.3;
+  color: rgb(46, 44, 44);
+}
+
 .field__input {
   color: #fff;
   background-color: #2F2F2F;

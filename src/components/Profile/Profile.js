@@ -1,11 +1,11 @@
-import { useContext, useEffect, useRef} from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
 
-export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setErrorMessage}) {
+export default function Profile({ onSignOut, onUpdateUserInfo, errorMessage, setErrorMessage, isBlock }) {
 
-  const {values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
   const refName = useRef();
   const refEmail = useRef();
@@ -15,14 +15,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
     refEmail.current.value = currentUser.email
   }, [currentUser]);
 
-  /*useEffect(() => {
-    setValues({
-      name: currentUser.name,
-      email: currentUser.name
-    })
-  }, []);*/
-
-  useEffect(() => {setErrorMessage("")},[values]);
+  useEffect(() => { setErrorMessage("") }, [values]);
 
   useEffect(() => {
     if (isValid) {
@@ -36,7 +29,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUserInfo({name : refName.current.value, email : refEmail.current.value});
+    onUpdateUserInfo({ name: refName.current.value, email: refEmail.current.value });
     setIsValid(false);
   }
 
@@ -48,6 +41,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
           <div className="profile-form__field">
             <h3 className="field__title">Имя</h3>
             <input
+              readOnly={isBlock}
               className="profile-form__input"
               id="input-name"
               pattern="[A-Za-zА-Яа-яёЁ\- ]{2,40}"
@@ -65,6 +59,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
             <h3 className="field__title">E-mail</h3>
             <input
               className="profile-form__input"
+              readOnly={isBlock}
               id="input-email"
               type="email"
               ref={refEmail}

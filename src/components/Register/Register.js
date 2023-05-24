@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import './Register.css';
 
-export default function Register({ onRegister, errorMessage, setErrorMessage }) {
-  
-  const {values, handleChange, errors, isValid } = useFormWithValidation();
+export default function Register({ onRegister, errorMessage, setErrorMessage, isBlock }) {
 
-  useEffect(() => {setErrorMessage("")},[values]);
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+
+  useEffect(() => { setErrorMessage("") }, [values]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,6 +22,7 @@ export default function Register({ onRegister, errorMessage, setErrorMessage }) 
           <div className="field">
             <label className="field__label" htmlFor="input-name">Имя</label>
             <input
+              readOnly={isBlock}
               className="field__input"
               id="input-name"
               type="text"
@@ -38,6 +39,7 @@ export default function Register({ onRegister, errorMessage, setErrorMessage }) 
           <div className="field">
             <label className="field__label" htmlFor="input-email">E-mail</label>
             <input
+              readOnly={isBlock}
               className="field__input"
               id="input-email"
               type="email"
@@ -54,6 +56,7 @@ export default function Register({ onRegister, errorMessage, setErrorMessage }) 
           <div className="field">
             <label className="field__label" htmlFor="input-password">Пароль</label>
             <input
+              readOnly={isBlock}
               className="field__input field__input_type_password"
               id="input-password"
               type="password"

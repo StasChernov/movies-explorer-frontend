@@ -4,11 +4,11 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 import '../Register/Register.css';
 
-export default function Login({ onLogin, errorMessage, setErrorMessage }) {
+export default function Login({ onLogin, errorMessage, setErrorMessage, isBlock }) {
 
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-  useEffect(() => {setErrorMessage("")},[values]);
+  useEffect(() => { setErrorMessage("") }, [values]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -16,7 +16,6 @@ export default function Login({ onLogin, errorMessage, setErrorMessage }) {
   }
 
   return (
-
     <section className="entry">
       <h1 className="entry__title">Рады видеть!</h1>
       <form className="entry__form" onSubmit={handleSubmit}>
@@ -24,13 +23,14 @@ export default function Login({ onLogin, errorMessage, setErrorMessage }) {
           <div className="field">
             <label className="field__label" htmlFor="input-email">E-mail</label>
             <input
+              readOnly={isBlock}
               className="field__input"
               id="input-email"
               type="email"
               placeholder="E-mail"
               onChange={handleChange}
               name="email"
-              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1, 63}$"
               required
               minLength="2"
               maxLength="40"
@@ -40,6 +40,7 @@ export default function Login({ onLogin, errorMessage, setErrorMessage }) {
           <div className="field">
             <label className="field__label" htmlFor="input-password">Пароль</label>
             <input
+              readOnly={isBlock}
               className="field__input"
               id="input-password"
               type="password"

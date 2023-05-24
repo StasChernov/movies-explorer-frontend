@@ -42,6 +42,8 @@ export default function App() {
   const [errorSignIn, SetErrorSignIn] = useState("");
   const [errorSignUp, SetErrorSignUp] = useState("");
   const [errorProfile, SetErrorProfile] = useState("");
+  const [isBlock, setIsBlock] = useState(false);
+
   const history = useHistory();
 
   const [currentUser, setCurrentUser] = useState({
@@ -179,6 +181,7 @@ export default function App() {
   }
 
   function handleLogin({ email, password }) {
+    setIsBlock(true);
     mainApi
       .signIn({ email, password })
       .then((data) => {
@@ -193,10 +196,12 @@ export default function App() {
       .catch((err) => {
         console.log("%c" + err, "color: #dd3333");
         SetErrorSignIn(err);
-      });
+      })
+      .finally(() => setIsBlock(false));
   }
 
   function handleRegister({ name, email, password }) {
+    setIsBlock(true);
     mainApi
       .signUp({ name, email, password })
       .then(() => {
@@ -205,10 +210,12 @@ export default function App() {
       .catch((err) => {
         console.log("%c" + err, "color: #dd3333");
         SetErrorSignUp(err);
-      });
+      })
+      .finally(() => setIsBlock(false));
   }
 
   function handleUpdateUserInfo({ name, email }) {
+    setIsBlock(true);
     mainApi
       .updateUserInfo({ name, email })
       .then((data) => {
@@ -221,7 +228,8 @@ export default function App() {
       .catch((err) => {
         SetErrorProfile(err);
         console.log("%c" + err, "color: #dd3333");
-      });
+      })
+      .finally(() => setIsBlock(false));
   }
 
   return (
@@ -256,13 +264,13 @@ export default function App() {
             </ProtectedRoute>
             <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
               <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Profile onSignOut={handleSignOut} onUpdateUserInfo={handleUpdateUserInfo} errorMessage={errorProfile} setErrorMessage={SetErrorProfile} />
+              <Profile onSignOut={handleSignOut} onUpdateUserInfo={handleUpdateUserInfo} errorMessage={errorProfile} setErrorMessage={SetErrorProfile} isBlock={isBlock}/>
             </ProtectedRoute>
             <Route path="/signup">
               {!isLoggedIn ?
                 <>
                   <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-                  <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp} />
+                  <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp} isBlock={isBlock}/>
                 </> : <Redirect to="/" />
               }
             </Route>
@@ -270,7 +278,7 @@ export default function App() {
               {!isLoggedIn ?
                 <>
                   <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-                  <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn} />
+                  <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn} isBlock={isBlock}/>
                 </> : <Redirect to="/" />
               }
             </Route>
