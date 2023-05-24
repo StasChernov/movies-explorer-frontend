@@ -8,9 +8,13 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
   const {values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {setErrorMessage("")},[values]);
+  useEffect(() => {
+    setErrorMessage("")
+  },[values]);
 
   useEffect(() => {
+
+    
     setValues({
       email: currentUser.email,
       name: currentUser.name,

@@ -12,7 +12,7 @@ import PageNotFound from '../PageNotFound/PageNotFound.js';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { BIG_WIDTH_SCREEN } from "../../utils/constants";
@@ -81,6 +81,7 @@ export default function App() {
       mainApi.deleteMovie(movieId)
         .then(() => {
           setLocalSavedMovies((state) => state.filter((c) => c._id !== movieId));
+          setFilteredSavedMovies((state) => state.filter((c) => c._id !== movieId));
         })
         .catch((err) => console.log(err));
     } else {
@@ -102,10 +103,6 @@ export default function App() {
       return movies.filter(movie => movie.nameRU.toLowerCase().includes(filter))
     }
   }
-
-  useEffect(() => {
-    setFilteredSavedMovies(localSavedMovies);
-  }, [localSavedMovies])
 
   function getMoviesFromApi() {
     mainApi.getSavedMovies()
@@ -219,6 +216,7 @@ export default function App() {
           email: data.email,
           name: data.name
         });
+        SetErrorProfile("Ваши данные успешно обновлены");
       })
       .catch((err) => {
         SetErrorProfile(err);
@@ -261,12 +259,20 @@ export default function App() {
               <Profile onSignOut={handleSignOut} onUpdateUserInfo={handleUpdateUserInfo} errorMessage={errorProfile} setErrorMessage={SetErrorProfile} />
             </ProtectedRoute>
             <Route path="/signup">
-              <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp} />
+              {!isLoggedIn ?
+                <>
+                  <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
+                  <Register onRegister={handleRegister} errorMessage={errorSignUp} setErrorMessage={SetErrorSignUp} />
+                </> : <Redirect to="/" />
+              }
             </Route>
             <Route path="/signin">
-              <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
-              <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn} />
+              {!isLoggedIn ?
+                <>
+                  <Header isForm={true} setIsOpen={setIsOpen} isOpen={isOpen} />
+                  <Login onLogin={handleLogin} errorMessage={errorSignIn} setErrorMessage={SetErrorSignIn} />
+                </> : <Redirect to="/" />
+              }
             </Route>
             <Route exact path="/">
               <Header isLoggedIn={isLoggedIn} setIsOpen={setIsOpen} isOpen={isOpen} />
