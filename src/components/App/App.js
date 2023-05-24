@@ -93,10 +93,13 @@ export default function App() {
   }
 
   function filterMovies(movies, isShorts, title) {
-    if (isShorts)
-      return movies.filter(movie => movie.nameRU.includes(title) && movie.duration <= DURATION)
-    else {
-      return movies.filter(movie => movie.nameRU.includes(title))
+
+    const filter = title.toLowerCase();
+
+    if (isShorts) {
+      return movies.filter(movie => movie.nameRU.toLowerCase().includes(filter) && movie.duration <= DURATION)
+    } else {
+      return movies.filter(movie => movie.nameRU.toLowerCase().includes(filter))
     }
   }
 
