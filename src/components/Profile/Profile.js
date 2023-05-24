@@ -1,4 +1,4 @@
-import { useContext, useEffect} from 'react';
+import { useContext, useEffect, useRef} from 'react';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
@@ -7,20 +7,23 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
 
   const {values, handleChange, errors, isValid, setValues, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
+  const refName = useRef();
+  const refEmail = useRef();
 
   useEffect(() => {
-    setErrorMessage("")
-  },[values]);
+    refName.current.value = currentUser.name;
+    refEmail.current.value = currentUser.email
+  }, [currentUser]);
 
-  useEffect(() => {
-
-    
+  /*useEffect(() => {
     setValues({
-      email: currentUser.email,
       name: currentUser.name,
-    });
-  }, []);
-    
+      email: currentUser.name
+    })
+  }, []);*/
+
+  useEffect(() => {setErrorMessage("")},[values]);
+
   useEffect(() => {
     if (isValid) {
       if ((currentUser.email !== values.email) || (currentUser.name !== values.name)) {
@@ -33,7 +36,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUserInfo(values);
+    onUpdateUserInfo({name : refName.current.value, email : refEmail.current.value});
     setIsValid(false);
   }
 
@@ -49,7 +52,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
               id="input-name"
               pattern="[A-Za-zА-Яа-яёЁ\- ]{2,40}"
               type="text"
-              value={values.name}
+              ref={refName}
               name="name"
               onChange={handleChange}
               required
@@ -64,7 +67,7 @@ export default function Profile({onSignOut, onUpdateUserInfo, errorMessage, setE
               className="profile-form__input"
               id="input-email"
               type="email"
-              value={values.email}
+              ref={refEmail}
               name="email"
               onChange={handleChange}
               pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
